@@ -1,0 +1,17 @@
+!!! XML
+!!! Strict
+
+%html
+  %head
+    %title LogBook
+    %link{:rel=>"stylesheet", :href=>"http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"}
+  %body
+    .container
+      %h1 LogBook
+      .row
+        - @messages.each do |item|
+          .span12
+            %p= item.url
+
+
+      
