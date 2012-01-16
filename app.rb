@@ -8,10 +8,22 @@ get '/' do
   haml :index
 end
 
-post '/add' do
-  Message.create({
-    :url => request[:url],
-    :posted_date => Time.now
-  })
-  redirect '/'
+get '/list' do
+  @messages = Message.order_by(:posted_date.desc)
+  haml :list
 end
+
+post '/add' do
+
+  def valid_http_uri?(str)
+    URI.split(str).first == 'http' rescue false
+  end
+
+  if valid_http_uri?(request[:url]) then
+    Message.create({
+                     :url => request[:url],
+                     :posted_date => Time.now
+                   })
+  end
+  redirect '/'
+end 
