@@ -18,9 +18,11 @@ get '/list' do
 end
 
 post '/add' do
-  if valid_http_uri?(request[:uri]) then
+  p request[:uri]
+  uri = URI.decode(request[:uri])
+  if valid_http_uri?(uri) then
     Message.create({
-                     :uri => request[:uri],
+                     :uri => uri,
                      :posted_date => Time.now
                    })
   end
