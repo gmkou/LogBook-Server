@@ -7,7 +7,7 @@ class Message < Sequel::Model
   unless table_exists?
     set_schema do
       primary_key :id
-      text :url
+      text :uri
       timestamp :posted_date
     end
     create_table

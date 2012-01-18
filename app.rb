@@ -19,9 +19,9 @@ post '/add' do
     URI.split(str).first == 'http' rescue false
   end
 
-  if valid_http_uri?(request[:url]) then
+  if valid_http_uri?(request[:uri]) then
     Message.create({
-                     :url => request[:url],
+                     :uri => request[:uri],
                      :posted_date => Time.now
                    })
   end
