@@ -18,10 +18,20 @@ get '/list' do
 end
 
 post '/add' do
-
   if valid_http_uri?(request[:uri]) then
     Message.create({
                      :uri => request[:uri],
+                     :posted_date => Time.now
+                   })
+  end
+  redirect '/'
+end 
+
+get '/add/*' do
+  uri = URI.decode(request.path).sub!(/\/add\//,"").concat("?").concat(request.query_string)
+  if valid_http_uri?(uri) then
+    Message.create({
+                     :uri => uri,
                      :posted_date => Time.now
                    })
   end
