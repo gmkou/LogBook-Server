@@ -18,7 +18,6 @@ get '/list' do
 end
 
 post '/add' do
-  p request[:uri]
   uri = URI.decode(request[:uri])
   if valid_http_uri?(uri) then
     Message.create({
@@ -27,4 +26,15 @@ post '/add' do
                    })
   end
   redirect '/'
+end 
+
+get '/count' do
+  p request[:uri]
+  if (request[:uri] != nil) then
+    uri = URI.decode(request[:uri])
+    length = Message.filter(:uri=>uri).count
+  else
+    length = 0
+  end
+  "#{length}"
 end 
