@@ -13,4 +13,11 @@ class AddTest < Test::Unit::TestCase
     assert browser.last_response.body.include?('Hello, World')
   end
 
+  def test_it_returns_uri
+    browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+    browser.post '/add', :uri => 'http://www.yahoo.co.jp'
+    browser.get '/list'
+    assert browser.last_response.body.include?('http://www.yahoo.co.jp')
+  end
+
 end
