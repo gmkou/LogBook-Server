@@ -20,4 +20,12 @@ class AddTest < Test::Unit::TestCase
     assert browser.last_response.body.include?('http://www.yahoo.co.jp')
   end
 
+  def test_it_returns_uri_count
+    browser = Rack::Test::Session.new(Rack::MockSession.new(Sinatra::Application))
+    browser.get '/count'
+    assert_equal '0', browser.last_response.body
+     browser.get '/count', :uri => 'http://www.yahoo.co.jp'
+    assert_equal '1', browser.last_response.body
+  end
+
 end
