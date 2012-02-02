@@ -20,16 +20,18 @@ end
 post '/add' do
   uri = URI.decode(request[:uri])
   if valid_http_uri?(uri) then
-    Message.create({
-                     :uri => uri,
-                     :posted_date => Time.now
-                   })
+    length = Message.filter(:uri=>uri).count
+    if length == 0 then
+      Message.create({
+                       :uri => uri,
+                       :posted_date => Time.now
+                     })
+    end
   end
   redirect '/'
 end 
 
 get '/count' do
-  p request[:uri]
   if (request[:uri] != nil) then
     uri = URI.decode(request[:uri])
     length = Message.filter(:uri=>uri).count
