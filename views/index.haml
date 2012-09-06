@@ -8,7 +8,7 @@
   %body
     .container
       %h1 LogBook
-      %p Hello, World
+      %a{:title => "LogBook", :href =>"/" } reload
       %form{:action=>"/add", :method=>"POST"}
         %input{:type=>"textfield", :name=>"uri"}
         %input{:type=>"submit"}
